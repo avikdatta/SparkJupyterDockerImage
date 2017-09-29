@@ -9,7 +9,8 @@ ENV NB_USER vmuser
 USER root
 WORKDIR /root/
 
-RUN add-apt-repository ppa:webupd8team/java \
+RUN apt-get install -y software-properties-common \
+    && add-apt-repository ppa:webupd8team/java \
     && apt-get -y update \
     && apt-get install -y oracle-java8-installer \
                           oracle-java8-set-default
