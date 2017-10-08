@@ -12,11 +12,10 @@ WORKDIR /root/
 RUN apt-get install -y software-properties-common \
     && add-apt-repository ppa:webupd8team/java \
     && apt-get -y update \
-    && apt-get install -y oracle-java8-installer 
-                          
-RUN echo "JAVA_HOME=/usr/lib/jvm/java-8-oracle" > /etc/environment \
-    && echo "JRE_HOME=/usr/lib/jvm/java-8-oracle/jre" >> /etc/environment
-    
+    && apt-get install -y openjdk-9-jdk \
+                          openjdk-9-jre \
+    &&  apt-get purge -y --auto-remove
+                              
 USER $NB_USER
 WORKDIR /home/$NB_USER
 
@@ -39,7 +38,7 @@ RUN  wget -q https://d3kbcqa49mib13.cloudfront.net/spark-${APACHE_SPARK_VERSION}
     ln -s spark-${APACHE_SPARK_VERSION}-bin-hadoop${HADOOP_VERSION} spark
 
 
-EXPOSE 8888
+EXPOSE 8887
 EXPOSE 4040
 
 # Spark config
@@ -48,4 +47,4 @@ ENV PYTHONPATH $SPARK_HOME/python:$SPARK_HOME/python/lib/py4j-0.10.4-src.zip
 ENV SPARK_OPTS --driver-java-options=-Xms1024M --driver-java-options=-Xmx4096M --driver-java-options=-Dlog4j.logLevel=info
 ENV PATH $PATH:$SPARK_HOME/bin
 
-CMD ["jupyter-notebook", "--ip", "0.0.0.0"]
+CMD ["jupyter-notebook", "--ip", "0.0.0.0", '--port','8887']
