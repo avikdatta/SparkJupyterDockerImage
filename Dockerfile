@@ -9,9 +9,7 @@ ENV NB_USER vmuser
 USER root
 WORKDIR /root/
 
-RUN apt-get install -y software-properties-common \
-    && add-apt-repository ppa:webupd8team/java \
-    && apt-get -y update \
+RUN apt-get update \
     && apt-get install -y openjdk-9-jdk \
                           openjdk-9-jre \
     &&  apt-get purge -y --auto-remove
