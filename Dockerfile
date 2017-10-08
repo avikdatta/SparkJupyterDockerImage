@@ -12,7 +12,8 @@ WORKDIR /root/
 RUN apt-get update \
     && apt-get install -y openjdk-8-jdk \
                           openjdk-8-jre \
-    &&  apt-get purge -y --auto-remove
+    &&  apt-get purge -y --auto-remove  \
+    && rm -rf /var/lib/apt/lists/*
                               
 USER $NB_USER
 WORKDIR /home/$NB_USER
@@ -45,4 +46,4 @@ ENV PYTHONPATH $SPARK_HOME/python:$SPARK_HOME/python/lib/py4j-0.10.4-src.zip
 ENV SPARK_OPTS --driver-java-options=-Xms1024M --driver-java-options=-Xmx4096M --driver-java-options=-Dlog4j.logLevel=info
 ENV PATH $PATH:$SPARK_HOME/bin
 
-CMD [ 'jupyter-notebook', '--ip=0.0.0.0', '--port=8887', '--no-browser' ]
+CMD [ 'jupyter', 'notebook', '--ip=0.0.0.0', '--port=8887', '--no-browser' ]
