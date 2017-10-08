@@ -10,8 +10,8 @@ USER root
 WORKDIR /root/
 
 RUN apt-get update \
-    && apt-get install -y openjdk-9-jdk \
-                          openjdk-9-jre \
+    && apt-get install -y openjdk-8-jdk \
+                          openjdk-8-jre \
     &&  apt-get purge -y --auto-remove
                               
 USER $NB_USER
