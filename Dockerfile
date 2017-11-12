@@ -13,6 +13,7 @@ RUN apt-get update \
     && apt-get install -y openjdk-8-jdk \
                           openjdk-8-jre \
     &&  apt-get purge -y --auto-remove  \
+    &&  apt-get clean \
     && rm -rf /var/lib/apt/lists/*
                               
 USER $NB_USER
@@ -25,12 +26,16 @@ ENV PATH="$PYENV_ROOT/shims/:$PATH"
 RUN eval "$(pyenv init -)" 
 RUN pyenv global 3.5.2
 
-RUN pip install pandas
-        
-ENV APACHE_SPARK_VERSION 2.2.0
+RUN pip install pandas \
+                keras
+
+RUN rm -rf /home/$NB_USER/.cache \
+    && rm -rf /home/$NB_USER/tmp
+    
+ENV APACHE_SPARK_VERSION 2.3.0
 ENV HADOOP_VERSION 2.7
 
-# Install Apache Spark v 2.1.0
+# Install Apache Spark
 RUN  wget -q https://d3kbcqa49mib13.cloudfront.net/spark-${APACHE_SPARK_VERSION}-bin-hadoop${HADOOP_VERSION}.tgz && \
     tar -xzf spark-${APACHE_SPARK_VERSION}-bin-hadoop${HADOOP_VERSION}.tgz && \
     rm spark-${APACHE_SPARK_VERSION}-bin-hadoop${HADOOP_VERSION}.tgz && \
