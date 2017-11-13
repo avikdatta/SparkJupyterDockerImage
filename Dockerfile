@@ -13,7 +13,7 @@ RUN mkdir -p /home/$NB_USER/tmp
 
 RUN apt-get update \
     && apt-get install -y ca-certificates \
-                          openjdk-9-jdk \
+                          openjdk-8-jdk \
     &&  apt-get purge -y --auto-remove  \
     &&  apt-get clean \
     &&  rm -rf /var/lib/apt/lists/*
