@@ -10,7 +10,8 @@ USER root
 WORKDIR /root/
 
 RUN apt-get update \
-    && apt-get install -y openjdk-9-jdk \
+    && apt-get install -y ca-certificates \
+                          openjdk-9-jdk \
                           openjdk-9-jre \
     &&  apt-get purge -y --auto-remove  \
     &&  apt-get clean \
@@ -27,7 +28,8 @@ RUN eval "$(pyenv init -)"
 RUN pyenv global 3.5.2
 
 RUN pip install pandas \
-                keras
+                keras  \
+                tensorflow
 
 RUN rm -rf /home/$NB_USER/.cache \
     && rm -rf /home/$NB_USER/tmp
