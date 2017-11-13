@@ -37,7 +37,7 @@ RUN pip install pandas \
 RUN rm -rf /home/$NB_USER/.cache \
     && rm -rf /home/$NB_USER/tmp
     
-ENV APACHE_SPARK_VERSION 2.3.0
+ENV APACHE_SPARK_VERSION 2.2.0
 ENV HADOOP_VERSION 2.7
 
 # Install Apache Spark
