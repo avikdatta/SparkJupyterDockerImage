@@ -9,6 +9,8 @@ ENV NB_USER vmuser
 USER root
 WORKDIR /root/
 
+RUN mkdir -p /home/$NB_USER/tmp
+
 RUN apt-get update \
     && apt-get install -y ca-certificates \
                           openjdk-9-jdk \
@@ -16,7 +18,9 @@ RUN apt-get update \
     &&  apt-get purge -y --auto-remove  \
     &&  apt-get clean \
     &&  rm -rf /var/lib/apt/lists/*
-                              
+
+RUN rm -rf /home/$NB_USER/tmp
+
 USER $NB_USER
 WORKDIR /home/$NB_USER
 
