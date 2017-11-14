@@ -32,7 +32,8 @@ RUN pyenv global 3.5.2
 
 RUN pip install pandas \
                 keras  \
-                tensorflow
+                tensorflow \
+                jupyter-tensorboard
 
 RUN rm -rf /home/$NB_USER/.cache \
     && rm -rf /home/$NB_USER/tmp
