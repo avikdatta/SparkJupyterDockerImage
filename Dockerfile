@@ -12,8 +12,9 @@ WORKDIR /root/
 RUN mkdir -p /home/$NB_USER/tmp
 
 RUN apt-get update \
-    && apt-get install -y ca-certificates \
-                          openjdk-8-jdk \
+    && apt-get install --no-install-recommends -y \
+    openjdk-8-jre-headless \
+    ca-certificates-java \
     &&  apt-get purge -y --auto-remove  \
     &&  apt-get clean \
     &&  rm -rf /var/lib/apt/lists/*
