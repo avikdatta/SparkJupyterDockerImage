@@ -15,6 +15,8 @@ RUN apt-get update \
     && apt-get install --no-install-recommends -y \
     openjdk-8-jre-headless \
     ca-certificates-java \
+    screen \
+    netcat \
     &&  apt-get purge -y --auto-remove  \
     &&  apt-get clean \
     &&  rm -rf /var/lib/apt/lists/*
