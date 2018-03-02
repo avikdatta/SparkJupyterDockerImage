@@ -34,6 +34,7 @@ RUN eval "$(pyenv init -)"
 RUN pyenv global 3.5.2
 
 RUN pip install py4j \
+                pyarrow \
                 pandas \
                 keras  \
                 tensorflow \
