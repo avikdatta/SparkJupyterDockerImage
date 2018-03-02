@@ -33,7 +33,8 @@ ENV PATH="$PYENV_ROOT/shims/:$PATH"
 RUN eval "$(pyenv init -)" 
 RUN pyenv global 3.5.2
 
-RUN pip install pandas \
+RUN pip install py4j \
+                pandas \
                 keras  \
                 tensorflow \
                 jupyter-tensorboard
