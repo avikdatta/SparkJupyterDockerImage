@@ -47,7 +47,7 @@ ENV APACHE_SPARK_VERSION 2.3.0
 ENV HADOOP_VERSION 2.7
 
 # Install Apache Spark
-RUN  wget -q http://apache.mirrors.nublue.co.uk/spark/spark-${APACHE_SPARK_VERSION}/spark-${APACHE_SPARK_VERSION}-bin-hadoop${HADOOP_VERSION}.tgz  && \
+RUN  wget -q ftp://ftp.mirrorservice.org/sites/ftp.apache.org/spark/spark-${APACHE_SPARK_VERSION}/spark-${APACHE_SPARK_VERSION}-bin-hadoop${HADOOP_VERSION}.tgz && \
     tar -xzf spark-${APACHE_SPARK_VERSION}-bin-hadoop${HADOOP_VERSION}.tgz && \
     rm spark-${APACHE_SPARK_VERSION}-bin-hadoop${HADOOP_VERSION}.tgz && \
     ln -s spark-${APACHE_SPARK_VERSION}-bin-hadoop${HADOOP_VERSION} spark
