@@ -43,22 +43,25 @@ RUN pip install py4j \
 RUN rm -rf /home/$NB_USER/.cache \
     && rm -rf /home/$NB_USER/tmp
     
-ENV APACHE_SPARK_VERSION 2.3.0
+ENV APACHE_SPARK_VERSION 2.2.0
 ENV HADOOP_VERSION 2.7
 
 # Install Apache Spark
-RUN  wget -q ftp://ftp.mirrorservice.org/sites/ftp.apache.org/spark/spark-${APACHE_SPARK_VERSION}/spark-${APACHE_SPARK_VERSION}-bin-hadoop${HADOOP_VERSION}.tgz && \
+RUN  wget -q https://archive.apache.org/dist/spark/spark-${APACHE_SPARK_VERSION}/spark-${APACHE_SPARK_VERSION}-bin-hadoop${HADOOP_VERSION}.tgz && \
     tar -xzf spark-${APACHE_SPARK_VERSION}-bin-hadoop${HADOOP_VERSION}.tgz && \
     rm spark-${APACHE_SPARK_VERSION}-bin-hadoop${HADOOP_VERSION}.tgz && \
     ln -s spark-${APACHE_SPARK_VERSION}-bin-hadoop${HADOOP_VERSION} spark
 
-
+RUN wget -q https://storage.googleapis.com/hail-common/distributions/devel/Hail-devel-567fca0b55eb-Spark-2.2.0.zip \
+    unzip Hail-devel-567fca0b55eb-Spark-2.2.0.zip 
+  
 EXPOSE 8887
 EXPOSE 4040
 
 # Spark config
 ENV SPARK_HOME /home/$NB_USER/spark
-ENV PYTHONPATH $SPARK_HOME/python:$SPARK_HOME/python/lib/py4j-0.10.4-src.zip
+ENV HAIL_HOME /home/$NB_USER/hail
+ENV PYTHONPATH $SPARK_HOME/python:$SPARK_HOME/python/lib/py4j-0.10.4-src.zip:$HAIL_HOME/python
 ENV SPARK_OPTS --driver-java-options=-Xms1024M --driver-java-options=-Xmx4096M --driver-java-options=-Dlog4j.logLevel=info
 ENV PATH $PATH:$SPARK_HOME/bin
 
