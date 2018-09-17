@@ -52,8 +52,6 @@ RUN  wget -q https://archive.apache.org/dist/spark/spark-${APACHE_SPARK_VERSION}
     rm spark-${APACHE_SPARK_VERSION}-bin-hadoop${HADOOP_VERSION}.tgz && \
     ln -s spark-${APACHE_SPARK_VERSION}-bin-hadoop${HADOOP_VERSION} spark
 
-RUN wget -q https://storage.googleapis.com/hail-common/distributions/devel/Hail-devel-567fca0b55eb-Spark-2.2.0.zip && \
-    unzip Hail-devel-567fca0b55eb-Spark-2.2.0.zip 
   
 EXPOSE 8887
 EXPOSE 4040
