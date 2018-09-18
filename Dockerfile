@@ -43,11 +43,11 @@ RUN pip install py4j \
 RUN rm -rf /home/$NB_USER/.cache \
     && rm -rf /home/$NB_USER/tmp
     
-ENV APACHE_SPARK_VERSION 2.2.0
+ENV APACHE_SPARK_VERSION 2.3.1
 ENV HADOOP_VERSION 2.7
 
 # Install Apache Spark
-RUN  wget -q https://archive.apache.org/dist/spark/spark-${APACHE_SPARK_VERSION}/spark-${APACHE_SPARK_VERSION}-bin-hadoop${HADOOP_VERSION}.tgz && \
+RUN  wget -q http://www-us.apache.org/dist/spark/spark-${APACHE_SPARK_VERSION}/spark-${APACHE_SPARK_VERSION}-bin-hadoop${HADOOP_VERSION}.tgz && \
     tar -xzf spark-${APACHE_SPARK_VERSION}-bin-hadoop${HADOOP_VERSION}.tgz && \
     rm spark-${APACHE_SPARK_VERSION}-bin-hadoop${HADOOP_VERSION}.tgz && \
     ln -s spark-${APACHE_SPARK_VERSION}-bin-hadoop${HADOOP_VERSION} spark
