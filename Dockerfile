@@ -17,6 +17,7 @@ RUN apt-get update \
     ca-certificates-java \
     screen \
     netcat \
+    unzip \
     &&  apt-get purge -y --auto-remove  \
     &&  apt-get clean \
     &&  rm -rf /var/lib/apt/lists/*
@@ -31,7 +32,7 @@ ENV PATH="$PYENV_ROOT/libexec/:$PATH"
 ENV PATH="$PYENV_ROOT/shims/:$PATH"
 
 RUN eval "$(pyenv init -)" 
-RUN pyenv global 3.5.2
+RUN pyenv global 3.6.0
 
 RUN pip install py4j \
                 pyarrow \
@@ -49,9 +50,12 @@ ENV HADOOP_VERSION 2.7
 # Install Apache Spark
 RUN  wget -q http://www-us.apache.org/dist/spark/spark-${APACHE_SPARK_VERSION}/spark-${APACHE_SPARK_VERSION}-bin-hadoop${HADOOP_VERSION}.tgz && \
     tar -xzf spark-${APACHE_SPARK_VERSION}-bin-hadoop${HADOOP_VERSION}.tgz && \
-    rm spark-${APACHE_SPARK_VERSION}-bin-hadoop${HADOOP_VERSION}.tgz && \
-    ln -s spark-${APACHE_SPARK_VERSION}-bin-hadoop${HADOOP_VERSION} spark
+    rm -f spark-${APACHE_SPARK_VERSION}-bin-hadoop${HADOOP_VERSION}.tgz && \
+    mv spark-${APACHE_SPARK_VERSION}-bin-hadoop${HADOOP_VERSION} spark
 
+RUN wget -q https://storage.googleapis.com/hail-common/distributions/devel/Hail-devel-a06353b8f4bd-Spark-2.2.0.zip && \
+    unzip Hail-devel-a06353b8f4bd-Spark-2.2.0.zip && \
+    rm -f Hail-devel-a06353b8f4bd-Spark-2.2.0.zip
   
 EXPOSE 8887
 EXPOSE 4040
