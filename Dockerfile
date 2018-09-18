@@ -59,7 +59,7 @@ ENV HADOOP_VERSION 2.7
 RUN  wget -q http://www-us.apache.org/dist/spark/spark-${APACHE_SPARK_VERSION}/spark-${APACHE_SPARK_VERSION}-bin-hadoop${HADOOP_VERSION}.tgz && \
     tar -xzf spark-${APACHE_SPARK_VERSION}-bin-hadoop${HADOOP_VERSION}.tgz && \
     rm -f spark-${APACHE_SPARK_VERSION}-bin-hadoop${HADOOP_VERSION}.tgz && \
-    mv spark-${APACHE_SPARK_VERSION}-bin-hadoop${HADOOP_VERSION} spark
+    ln -s spark-${APACHE_SPARK_VERSION}-bin-hadoop${HADOOP_VERSION} spark
 
 RUN wget -q https://storage.googleapis.com/hail-common/distributions/devel/Hail-devel-a06353b8f4bd-Spark-2.2.0.zip && \
     unzip Hail-devel-a06353b8f4bd-Spark-2.2.0.zip && \
