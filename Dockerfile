@@ -74,5 +74,7 @@ ENV HAIL_HOME /home/$NB_USER/hail
 ENV PYTHONPATH $SPARK_HOME/python:$SPARK_HOME/python/lib/py4j-0.10.4-src.zip:$HAIL_HOME/python
 ENV SPARK_OPTS --driver-java-options=-Xms1024M --driver-java-options=-Xmx4096M --driver-java-options=-Dlog4j.logLevel=info
 ENV PATH $PATH:$SPARK_HOME/bin::$HAIL_HOME/bin/
+ENV JAR_PATH $HAIL_HOME/jars/hail-all-spark.jar
+ENV PYSPARK_SUBMIT_ARGS "--conf spark.driver.extraClassPath='$JAR_PATH' --conf spark.executor.extraClassPath='$JAR_PATH' pyspark-shell"
 
 CMD ["jupyter","lab","--ip=0.0.0.0","--port=8887","--no-browser"]
