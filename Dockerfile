@@ -39,12 +39,20 @@ RUN pip install py4j \
                 pandas \
                 keras  \
                 tensorflow \
-                jupyter-tensorboard
+                jupyter-tensorboard \
+                numpy \
+                matplotlib \
+                seaborn \
+                bokeh \
+                parsimonious==0.8.0 \
+                ipykernel \
+                decorator==4.2.1
 
-RUN rm -rf /home/$NB_USER/.cache \
-    && rm -rf /home/$NB_USER/tmp
+RUN rm -rf /home/$NB_USER/.cache && \
+    rm -rf /home/$NB_USER/tmp && \
+    mkdir -p /home/$NB_USER/tmp
     
-ENV APACHE_SPARK_VERSION 2.3.1
+ENV APACHE_SPARK_VERSION 2.2.0
 ENV HADOOP_VERSION 2.7
 
 # Install Apache Spark
@@ -65,6 +73,6 @@ ENV SPARK_HOME /home/$NB_USER/spark
 ENV HAIL_HOME /home/$NB_USER/hail
 ENV PYTHONPATH $SPARK_HOME/python:$SPARK_HOME/python/lib/py4j-0.10.4-src.zip:$HAIL_HOME/python
 ENV SPARK_OPTS --driver-java-options=-Xms1024M --driver-java-options=-Xmx4096M --driver-java-options=-Dlog4j.logLevel=info
-ENV PATH $PATH:$SPARK_HOME/bin
+ENV PATH $PATH:$SPARK_HOME/bin::$HAIL_HOME/bin/
 
 CMD ["jupyter","lab","--ip=0.0.0.0","--port=8887","--no-browser"]
