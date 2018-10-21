@@ -18,6 +18,7 @@ RUN apt-get update \
     screen \
     netcat \
     unzip \
+    libatlas-base-dev \
     &&  apt-get purge -y --auto-remove  \
     &&  apt-get clean \
     &&  rm -rf /var/lib/apt/lists/*
