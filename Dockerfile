@@ -35,7 +35,8 @@ ENV PATH="$PYENV_ROOT/shims/:$PATH"
 RUN eval "$(pyenv init -)" 
 RUN pyenv global 3.6.0
 
-RUN pip install py4j \
+RUN pip install --upgrade pip && \
+    pip install py4j \
                 pyarrow \
                 pandas \
                 keras  \
@@ -53,7 +54,7 @@ RUN rm -rf /home/$NB_USER/.cache && \
     rm -rf /home/$NB_USER/tmp && \
     mkdir -p /home/$NB_USER/tmp
     
-ENV APACHE_SPARK_VERSION 2.4.0
+ENV APACHE_SPARK_VERSION 2.4.2
 ENV HADOOP_VERSION 2.7
 
 # Install Apache Spark
