@@ -54,7 +54,7 @@ RUN rm -rf /home/$NB_USER/.cache && \
     rm -rf /home/$NB_USER/tmp && \
     mkdir -p /home/$NB_USER/tmp
     
-ENV APACHE_SPARK_VERSION 2.4.2
+ENV APACHE_SPARK_VERSION 2.4.3
 ENV HADOOP_VERSION 2.7
 
 # Install Apache Spark
