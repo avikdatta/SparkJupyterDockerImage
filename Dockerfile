@@ -36,9 +36,9 @@ RUN eval "$(pyenv init -)"
 RUN pyenv global 3.6.0
 
 RUN pip install --upgrade pip && \
-    pip install py4j \
+    pip install py4j==0.10.7 \
                 pyarrow \
-                pandas \
+                pandas==0.24.0 \
                 keras  \
                 tensorflow \
                 jupyter-tensorboard \
