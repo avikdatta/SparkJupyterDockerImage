@@ -36,7 +36,9 @@ RUN eval "$(pyenv init -)"
 RUN pyenv global 3.6.0
 
 RUN pip install --upgrade pip && \
-    pip install py4j==0.10.7 \
+    pip install jupyter \
+                jupyterlab \
+                py4j==0.10.7 \
                 pyarrow \
                 pandas==0.24.0 \
                 keras  \
