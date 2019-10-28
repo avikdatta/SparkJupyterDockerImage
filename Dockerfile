@@ -41,8 +41,8 @@ COPY environment.yml /home/$NB_USER/environment.yml
 ENV PATH $PATH:/home/$NB_USER/miniconda3/bin/
 RUN conda env create -q --file /home/$NB_USER/environment.yml
 RUN echo "conda deactivate" >> ~/.bashrc && \
-    echo "conda activate pipeline-env" >> ~/.bashrc && \
-    source ~/.bashrc
+    echo "conda activate pipeline-env" >> ~/.bashrc
+    
 
 RUN rm -rf /home/$NB_USER/.cache && \
     rm -rf /home/$NB_USER/tmp && \
@@ -63,12 +63,9 @@ EXPOSE 4040
 
 # Spark config
 ENV SPARK_HOME /home/$NB_USER/spark
-ENV HAIL_HOME $(pip show hail | grep Location | awk -F' ' '{print $2 "/hail"}')
-ENV PYTHONPATH $SPARK_HOME/python:$SPARK_HOME/python/lib/py4j-0.10.4-src.zip:$HAIL_HOME/python
+ENV PYTHONPATH $SPARK_HOME/python:$SPARK_HOME/python/lib/py4j-0.10.4-src.zip
 ENV SPARK_OPTS --driver-java-options=-Xms1024M --driver-java-options=-Xmx4096M --driver-java-options=-Dlog4j.logLevel=info
-ENV PATH $PATH:$SPARK_HOME/bin::$HAIL_HOME/bin/
-ENV JAR_PATH $HAIL_HOME/hail-all-spark.jar
-ENV PYSPARK_SUBMIT_ARGS "--conf spark.driver.extraClassPath='$JAR_PATH' --conf spark.executor.extraClassPath='$JAR_PATH' --conf spark.serializer=org.apache.spark.serializer.KryoSerializer  --conf spark.kryo.registrator=is.hail.kryo.HailKryoRegistrator pyspark-shell"
+ENV PATH $PATH:$SPARK_HOME/bin
 
 COPY entrypoint.sh /home/$NB_USER/entrypoint.sh
 ENTRYPOINT ["/bin/bash", "/home/$NB_USER/entrypoint.sh"]
