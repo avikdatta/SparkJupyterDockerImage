@@ -1,0 +1,35 @@
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies:
+  - python=3.6.0
+  - pyarrow
+  - pandas
+  - rpy2
+  - pip
+  - r-arrow=0.14.1
+  - java-jdk=8
+  - pip
+  - pip:
+    - matplotlib
+    - seaborn
+    - cython
+    - numpy
+    - line_profiler
+    - memory_profiler
+    - plotly
+    - cufflinks
+    - scikit-learn
+    - statsmodels
+    - pandas==0.25.0
+    - jupyter
+    - jupyterlab
+    - ipywidgets
+    - py4j==0.10.7
+    - keras
+    - tensorflow
+    - jupyter-tensorboard
+    - bokeh
+    - ipykernel
+    - hail
