@@ -1,4 +1,4 @@
-FROM avikdatta/basejupyterdockerimage:master
+FROM avikdatta/basejupyterdockerimage
 
 LABEL MAINTAINER reach4avik@yahoo.com
 
