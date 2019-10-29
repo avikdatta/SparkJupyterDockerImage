@@ -2,7 +2,7 @@
 case "$1" in
 notebook)
   conda activate pipeline-env
-  SPARK_HOME=$(pip show pyspark | grep Location | awk -F' ' '{print $2 }')
+  SPARK_HOME=$(pip show pyspark | grep Location | awk -F' ' '{print $2 "/pyspark" }')
   export SPARK_HOME=$SPARK_HOME
   export PYTHONPATH=$SPARK_HOME/python:$SPARK_HOME/python/lib/py4j-0.10.4-src.zip
   export SPARK_OPTS="--driver-java-options=-Xms1024M --driver-java-options=-Xmx4096M --driver-java-options=-Dlog4j.logLevel=info"
