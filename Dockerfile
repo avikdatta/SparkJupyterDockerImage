@@ -37,9 +37,8 @@ ENV PATH $PATH:/home/$NB_USER/miniconda3/bin/
 RUN conda env create -q --file /home/$NB_USER/environment.yml
 RUN echo "conda deactivate" >> ~/.bashrc && \
     echo "conda activate pipeline-env" >> ~/.bashrc && \
-    conda clean -i -t -c -q -y
-
-RUN rm -rf /home/$NB_USER/.cache && \
+    conda clean -i -t -q -y && \
+    rm -rf /home/$NB_USER/.cache && \
     rm -rf /home/$NB_USER/tmp && \
     mkdir -p /home/$NB_USER/tmp && \
     mkdir -p /home/$NB_USER/.cache
