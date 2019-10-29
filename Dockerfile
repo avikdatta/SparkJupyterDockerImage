@@ -60,6 +60,5 @@ EXPOSE 8887
 EXPOSE 4040
 
 COPY entrypoint.sh /home/$NB_USER/entrypoint.sh
-RUN ["/usr/local/bin/tini", "--"]
-ENTRYPOINT ["/usr/local/bin/tini", "--", "/bash", "/home/vmuser/entrypoint.sh"]
-CMD ["notebook"]
+ENTRYPOINT ["/usr/local/bin/tini", "--"]
+CMD ["/bash", "/home/vmuser/entrypoint.sh", "notebook"]
