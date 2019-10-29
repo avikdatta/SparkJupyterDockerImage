@@ -40,8 +40,8 @@ WORKDIR /home/$NB_USER
 COPY environment.yml /home/$NB_USER/environment.yml
 ENV PATH $PATH:/home/$NB_USER/miniconda3/bin/
 RUN conda env create -q --file /home/$NB_USER/environment.yml
-RUN echo "conda deactivate" >> ~/.bashrc && \
-    echo "conda activate pipeline-env" >> ~/.bashrc && \
+RUN echo "source deactivate" >> ~/.bashrc && \
+    echo "source activate pipeline-env" >> ~/.bashrc && \
     conda clean -i -t -q -y && \
     rm -rf /home/$NB_USER/.cache && \
     rm -rf /home/$NB_USER/tmp && \
@@ -61,4 +61,4 @@ EXPOSE 4040
 
 COPY entrypoint.sh /home/$NB_USER/entrypoint.sh
 ENTRYPOINT ["/usr/local/bin/tini", "--"]
-CMD ["/bash", "/home/vmuser/entrypoint.sh", "notebook"]
+CMD ["source ~/.bashrc && bash /home/vmuser/entrypoint.sh notebook"]
