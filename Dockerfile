@@ -32,40 +32,27 @@ RUN rm -rf /home/$NB_USER/tmp
 USER $NB_USER
 WORKDIR /home/$NB_USER
 
-ENV PYENV_ROOT="/home/$NB_USER/.pyenv"   
-ENV PATH="$PYENV_ROOT/libexec/:$PATH" 
-ENV PATH="$PYENV_ROOT/shims/:$PATH"
-
-
 COPY environment.yml /home/$NB_USER/environment.yml
 ENV PATH $PATH:/home/$NB_USER/miniconda3/bin/
 RUN conda env create -q --file /home/$NB_USER/environment.yml
 RUN echo "conda deactivate" >> ~/.bashrc && \
     echo "conda activate pipeline-env" >> ~/.bashrc
-    
 
 RUN rm -rf /home/$NB_USER/.cache && \
     rm -rf /home/$NB_USER/tmp && \
-    mkdir -p /home/$NB_USER/tmp
-    
-ENV APACHE_SPARK_VERSION 2.4.4
-ENV HADOOP_VERSION 2.7
+    mkdir -p /home/$NB_USER/tmp && \
+    mkdir -p /home/$NB_USER/.cache
 
+#ENV APACHE_SPARK_VERSION 2.4.4
+#ENV HADOOP_VERSION 2.7
 # Install Apache Spark
-RUN  wget -q http://www-us.apache.org/dist/spark/spark-${APACHE_SPARK_VERSION}/spark-${APACHE_SPARK_VERSION}-bin-hadoop${HADOOP_VERSION}.tgz && \
-    tar -xzf spark-${APACHE_SPARK_VERSION}-bin-hadoop${HADOOP_VERSION}.tgz && \
-    rm -f spark-${APACHE_SPARK_VERSION}-bin-hadoop${HADOOP_VERSION}.tgz && \
-    mv spark-${APACHE_SPARK_VERSION}-bin-hadoop${HADOOP_VERSION} spark
-
+#RUN  wget -q http://www-us.apache.org/dist/spark/spark-${APACHE_SPARK_VERSION}/spark-${APACHE_SPARK_VERSION}-bin-hadoop${HADOOP_VERSION}.tgz && \
+#    tar -xzf spark-${APACHE_SPARK_VERSION}-bin-hadoop${HADOOP_VERSION}.tgz && \
+#    rm -f spark-${APACHE_SPARK_VERSION}-bin-hadoop${HADOOP_VERSION}.tgz && \
+#    mv spark-${APACHE_SPARK_VERSION}-bin-hadoop${HADOOP_VERSION} spark
 
 EXPOSE 8887
 EXPOSE 4040
-
-# Spark config
-ENV SPARK_HOME /home/$NB_USER/spark
-ENV PYTHONPATH $SPARK_HOME/python:$SPARK_HOME/python/lib/py4j-0.10.4-src.zip
-ENV SPARK_OPTS --driver-java-options=-Xms1024M --driver-java-options=-Xmx4096M --driver-java-options=-Dlog4j.logLevel=info
-ENV PATH $PATH:$SPARK_HOME/bin
 
 COPY entrypoint.sh /home/$NB_USER/entrypoint.sh
 ENTRYPOINT ["/bin/bash", "/home/$NB_USER/entrypoint.sh"]

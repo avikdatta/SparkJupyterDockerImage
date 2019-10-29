@@ -16,8 +16,6 @@ dependencies:
     - seaborn
     - cython
     - numpy
-    - line_profiler
-    - memory_profiler
     - plotly
     - cufflinks
     - scikit-learn
@@ -33,3 +31,4 @@ dependencies:
     - bokeh
     - ipykernel
     - hail
+    - pyspark==2.4.4
