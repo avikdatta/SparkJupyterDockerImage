@@ -29,6 +29,11 @@ RUN apt-get update && \
 
 RUN rm -rf /home/$NB_USER/tmp
 
+ENV TINI_VERSION v0.18.0
+RUN wget --quiet  https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini && \
+    mv tini /usr/local/bin/tini && \ 
+    chmod +x /usr/local/bin/tini
+    
 USER $NB_USER
 WORKDIR /home/$NB_USER
 
@@ -55,6 +60,6 @@ EXPOSE 8887
 EXPOSE 4040
 
 COPY entrypoint.sh /home/$NB_USER/entrypoint.sh
-RUN ["/bin/bash","-c","source ~/.bashrc"]
-ENTRYPOINT ["/bin/bash","/home/vmuser/entrypoint.sh"]
+RUN ["/usr/local/bin/tini", "--"]
+ENTRYPOINT ["/usr/local/bin/tini", "--", "/bash", "/home/vmuser/entrypoint.sh"]
 CMD ["notebook"]
