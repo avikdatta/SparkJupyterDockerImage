@@ -55,5 +55,5 @@ EXPOSE 8887
 EXPOSE 4040
 
 COPY entrypoint.sh /home/$NB_USER/entrypoint.sh
-ENTRYPOINT ["/bin/bash", "/home/$NB_USER/entrypoint.sh"]
+ENTRYPOINT ["/bin/bash", "/home/vmuser/entrypoint.sh"]
 CMD ["notebook"]
