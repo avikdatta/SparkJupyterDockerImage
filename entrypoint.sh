@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 case "$1" in
 notebook)
-  source ~/.bashrc
+  conda activate pipeline-env
   SPARK_HOME=$(pip show pyspark | grep Location | awk -F' ' '{print $2 }')
   export SPARK_HOME=$SPARK_HOME
   export PYTHONPATH=$SPARK_HOME/python:$SPARK_HOME/python/lib/py4j-0.10.4-src.zip
