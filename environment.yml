@@ -1,0 +1,23 @@
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies:
+  - conda-forge::pyarrow
+  - conda-forge::pip
+  - bioconda::java-jdk=8
+  - conda-forge::dask
+  - conda-forge::ipywidgets
+  - conda-forge::nodejs
+  - pip
+  - pip:
+    - plotly
+    - py4j
+    - keras
+    - tensorflow
+    - bokeh
+    - ipykernel
+    - hail
+    - pyspark==2.4.5
+    - plotly
+    - jupyter_server_proxy
