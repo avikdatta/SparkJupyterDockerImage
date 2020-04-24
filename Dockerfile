@@ -45,9 +45,9 @@ RUN . /home/vmuser/miniconda3/etc/profile.d/conda.sh && \
     echo ". /home/$NB_USER/miniconda3/etc/profile.d/conda.sh" >> ~/.bashrc && \
     echo "source activate notebook-env" >> ~/.bashrc && \
     conda clean -a -y && \
-    jupyter labextension install @jupyter-widgets/jupyterlab-manager@1.1 --no-build && \
-    jupyter labextension install jupyterlab-plotly@4.6.0 --no-build && \
-    jupyter labextension install plotlywidget@4.6.0 --no-build && \
+    jupyter labextension install @jupyter-widgets/jupyterlab-manager --no-build && \
+    jupyter labextension install jupyterlab-plotly --no-build && \
+    jupyter labextension install plotlywidget --no-build && \
     jupyter lab build && \
     rm -rf /home/$NB_USER/.cache && \
     rm -rf /home/$NB_USER/tmp && \
