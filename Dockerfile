@@ -36,24 +36,19 @@ RUN chown -R ${NB_UID} /home/$NB_USER && \
 USER $NB_USER
 WORKDIR /home/$NB_USER
 ENV PATH $PATH:/home/$NB_USER/miniconda3/bin/
-ENV NODE_OPTIONS --max-old-space-size=4096
 RUN . /home/vmuser/miniconda3/etc/profile.d/conda.sh && \
     conda config --set safety_checks disabled && \
     conda update -n base -c defaults conda && \
     conda activate notebook-env && \
     conda env update -q -n notebook-env --file /home/$NB_USER/environment.yml && \
-    echo ". /home/$NB_USER/miniconda3/etc/profile.d/conda.sh" >> ~/.bashrc && \
+    echo ". /home/vmuser/miniconda3/etc/profile.d/conda.sh" >> ~/.bashrc && \
     echo "source activate notebook-env" >> ~/.bashrc && \
     conda clean -a -y && \
     jupyter serverextension enable --sys-prefix jupyter_server_proxy && \
-    jupyter labextension install @jupyter-widgets/jupyterlab-manager && \
-    jupyter labextension install jupyterlab-plotly && \
-    jupyter labextension install plotlywidget && \
     rm -rf /home/$NB_USER/.cache && \
     rm -rf /home/$NB_USER/tmp && \
     mkdir -p /home/$NB_USER/tmp && \
-    mkdir -p /home/$NB_USER/.cache && \
-    unset NODE_OPTIONS
+    mkdir -p /home/$NB_USER/.cache
 EXPOSE 8887
 EXPOSE 8787
 EXPOSE 4040
