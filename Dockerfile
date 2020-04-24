@@ -53,7 +53,7 @@ RUN . /home/vmuser/miniconda3/etc/profile.d/conda.sh && \
     rm -rf /home/$NB_USER/.cache && \
     rm -rf /home/$NB_USER/tmp && \
     mkdir -p /home/$NB_USER/tmp && \
-    mkdir -p /home/$NB_USER/.cache &7 \
+    mkdir -p /home/$NB_USER/.cache && \
     unset NODE_OPTIONS
 EXPOSE 8887
 EXPOSE 8787
