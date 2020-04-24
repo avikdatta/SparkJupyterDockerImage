@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 case "$1" in
 notebook)
+  . /home/vmuser/miniconda3/etc/profile.d/conda.sh
   conda activate pipeline-env
   SPARK_HOME=$(pip show pyspark | grep Location | awk -F' ' '{print $2 "/pyspark" }')
   export SPARK_HOME=$SPARK_HOME
@@ -14,11 +15,12 @@ notebook)
   export JAR_PATH=$HAIL_HOME/hail-all-spark.jar
   export PYSPARK_SUBMIT_ARGS="--conf spark.driver.extraClassPath=${JAR_PATH} --conf spark.executor.extraClassPath=${JAR_PATH} --conf spark.serializer=org.apache.spark.serializer.KryoSerializer  --conf spark.kryo.registrator=is.hail.kryo.HailKryoRegistrator pyspark-shell"
 
-  exec jupyter lab \
-  --ip=0.0.0.0 \
-  --port=8887 \
-  --no-browser \
-  --NotebookApp.iopub_data_rate_limit=100000000
+  jupyter lab \
+    --ip=0.0.0.0 \
+    --port=8887 \
+    --no-browser \
+    --NotebookApp.iopub_data_rate_limit=100000000
+    
   ;;
 *)
 exec "$@"
