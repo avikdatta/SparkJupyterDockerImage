@@ -11,6 +11,7 @@ dependencies:
   - conda-forge::pip
   - bioconda::java-jdk=8
   - conda-forge::dask
+  - conda-forge::ipywidgets
   - pip
   - pip:
     - matplotlib
