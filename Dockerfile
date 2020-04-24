@@ -44,7 +44,13 @@ RUN conda config --set safety_checks disabled && \
     rm -rf /home/$NB_USER/.cache && \
     rm -rf /home/$NB_USER/tmp && \
     mkdir -p /home/$NB_USER/tmp && \
-    mkdir -p /home/$NB_USER/.cache   
+    mkdir -p /home/$NB_USER/.cache
+ENV NODE_OPTIONS --max-old-space-size=4096
+RUN jupyter labextension install @jupyter-widgets/jupyterlab-manager@1.1 --no-build && \
+    jupyter labextension install jupyterlab-plotly@4.6.0 --no-build && \
+    jupyter labextension install plotlywidget@4.6.0 --no-build && \
+    jupyter lab build
+ENV NODE_OPTIONS ''
 EXPOSE 8887
 EXPOSE 8787
 EXPOSE 4040
