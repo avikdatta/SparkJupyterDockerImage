@@ -1,10 +1,11 @@
 FROM avikdatta/basejupyterdockerimage
-LABEL MAINTAINER reach4avik@yahoo.com
+LABEL MAINTAINER 'reach4avik@yahoo.com'
 ENV NB_USER vmuser
+ENV NB_UID 1000
 USER root
 WORKDIR /root/
-RUN mkdir -p /home/$NB_USER/tmp
-RUN apt-get update && \
+RUN mkdir -p /home/$NB_USER/tmp && \
+    apt-get update && \
     apt-get install --no-install-recommends -y \
     openjdk-8-jre-headless \
     ca-certificates-java \
@@ -20,8 +21,8 @@ RUN apt-get update && \
     libigraph0-dev  && \
     apt-get purge -y --auto-remove  && \
     apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
-RUN rm -rf /home/$NB_USER/tmp
+    rm -rf /var/lib/apt/lists/* && \
+    rm -rf /home/$NB_USER/tmp
 ENV TINI_VERSION v0.18.0
 RUN wget --quiet  https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini && \
     mv tini /usr/local/bin/tini && \ 
