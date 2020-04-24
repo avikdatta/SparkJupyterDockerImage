@@ -4,12 +4,13 @@ channels:
   - bioconda
   - defaults
 dependencies:
-  - python=3.6.0
-  - pyarrow
-  - pandas
-  - rpy2
-  - pip
-  - java-jdk=8
+  - conda-forge::python=3.6.9
+  - conda-forge::pyarrow
+  - conda-forge::pandas
+  - conda-forge::rpy2
+  - conda-forge::pip
+  - bioconda::java-jdk=8
+  - conda-forge::dask
   - pip
   - pip:
     - matplotlib
@@ -20,14 +21,15 @@ dependencies:
     - cufflinks
     - scikit-learn
     - statsmodels
-    - pandas==0.25.0
+    - pandas
     - jupyter
     - jupyterlab
     - ipywidgets
-    - py4j==0.10.7
+    - py4j
     - keras
     - tensorflow
     - bokeh
     - ipykernel
     - hail
-    - pyspark==2.4.4
+    - pyspark==2.4.5
+    - plotly
