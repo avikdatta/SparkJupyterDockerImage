@@ -5,6 +5,7 @@ channels:
   - defaults
 dependencies:
   - conda-forge::python=3.6.9
+  - conda-forge::jupyterlab
   - conda-forge::pyarrow
   - conda-forge::pandas
   - conda-forge::rpy2
