@@ -45,6 +45,7 @@ RUN . /home/vmuser/miniconda3/etc/profile.d/conda.sh && \
     echo ". /home/$NB_USER/miniconda3/etc/profile.d/conda.sh" >> ~/.bashrc && \
     echo "source activate notebook-env" >> ~/.bashrc && \
     conda clean -a -y && \
+    jupyter serverextension enable --sys-prefix jupyter_server_proxy && \
     jupyter labextension install @jupyter-widgets/jupyterlab-manager --no-build && \
     jupyter labextension install jupyterlab-plotly --no-build && \
     jupyter labextension install plotlywidget --no-build && \
@@ -52,8 +53,8 @@ RUN . /home/vmuser/miniconda3/etc/profile.d/conda.sh && \
     rm -rf /home/$NB_USER/.cache && \
     rm -rf /home/$NB_USER/tmp && \
     mkdir -p /home/$NB_USER/tmp && \
-    mkdir -p /home/$NB_USER/.cache
-ENV NODE_OPTIONS ''
+    mkdir -p /home/$NB_USER/.cache &7 \
+    unset NODE_OPTIONS
 EXPOSE 8887
 EXPOSE 8787
 EXPOSE 4040
