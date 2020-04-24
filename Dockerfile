@@ -37,13 +37,13 @@ WORKDIR /home/$NB_USER
 ENV PATH $PATH:/home/$NB_USER/miniconda3/bin/
 ENV NODE_OPTIONS --max-old-space-size=4096
 RUN . /home/vmuser/miniconda3/etc/profile.d/conda.sh && \
-    conda activate pipeline-env && \
     conda config --set safety_checks disabled && \
     conda update -n base -c defaults conda && \
     conda env create -q --file /home/$NB_USER/environment.yml && \
     echo ". /home/$NB_USER/miniconda3/etc/profile.d/conda.sh" >> ~/.bashrc && \
     echo "source activate pipeline-env" >> ~/.bashrc && \
     conda clean -a -y && \
+    conda activate pipeline-env && \
     jupyter labextension install @jupyter-widgets/jupyterlab-manager@1.1 --no-build && \
     jupyter labextension install jupyterlab-plotly@4.6.0 --no-build && \
     jupyter labextension install plotlywidget@4.6.0 --no-build && \
