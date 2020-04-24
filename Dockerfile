@@ -35,21 +35,23 @@ RUN chown -R ${NB_UID} /home/$NB_USER && \
 USER $NB_USER
 WORKDIR /home/$NB_USER
 ENV PATH $PATH:/home/$NB_USER/miniconda3/bin/
-RUN conda config --set safety_checks disabled && \
+ENV NODE_OPTIONS --max-old-space-size=4096
+RUN . /home/vmuser/miniconda3/etc/profile.d/conda.sh && \
+    conda activate pipeline-env && \
+    conda config --set safety_checks disabled && \
     conda update -n base -c defaults conda && \
     conda env create -q --file /home/$NB_USER/environment.yml && \
     echo ". /home/$NB_USER/miniconda3/etc/profile.d/conda.sh" >> ~/.bashrc && \
     echo "source activate pipeline-env" >> ~/.bashrc && \
     conda clean -a -y && \
+    jupyter labextension install @jupyter-widgets/jupyterlab-manager@1.1 --no-build && \
+    jupyter labextension install jupyterlab-plotly@4.6.0 --no-build && \
+    jupyter labextension install plotlywidget@4.6.0 --no-build && \
+    jupyter lab build && \
     rm -rf /home/$NB_USER/.cache && \
     rm -rf /home/$NB_USER/tmp && \
     mkdir -p /home/$NB_USER/tmp && \
     mkdir -p /home/$NB_USER/.cache
-ENV NODE_OPTIONS --max-old-space-size=4096
-RUN jupyter labextension install @jupyter-widgets/jupyterlab-manager@1.1 --no-build && \
-    jupyter labextension install jupyterlab-plotly@4.6.0 --no-build && \
-    jupyter labextension install plotlywidget@4.6.0 --no-build && \
-    jupyter lab build
 ENV NODE_OPTIONS ''
 EXPOSE 8887
 EXPOSE 8787
