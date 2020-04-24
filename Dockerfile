@@ -46,10 +46,9 @@ RUN . /home/vmuser/miniconda3/etc/profile.d/conda.sh && \
     echo "source activate notebook-env" >> ~/.bashrc && \
     conda clean -a -y && \
     jupyter serverextension enable --sys-prefix jupyter_server_proxy && \
-    jupyter labextension install @jupyter-widgets/jupyterlab-manager --no-build && \
-    jupyter labextension install jupyterlab-plotly --no-build && \
-    jupyter labextension install plotlywidget --no-build && \
-    jupyter lab build && \
+    jupyter labextension install @jupyter-widgets/jupyterlab-manager && \
+    jupyter labextension install jupyterlab-plotly && \
+    jupyter labextension install plotlywidget && \
     rm -rf /home/$NB_USER/.cache && \
     rm -rf /home/$NB_USER/tmp && \
     mkdir -p /home/$NB_USER/tmp && \
