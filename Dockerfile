@@ -23,8 +23,7 @@ RUN mkdir -p /home/$NB_USER/tmp && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* && \
     rm -rf /home/$NB_USER/tmp
-RUN rm -rf /home/$NB_USER/entrypoint.sh && \
-    rm -rf /home/$NB_USER/Dockerfile && \
+RUN rm -rf /home/$NB_USER/Dockerfile && \
     rm -rf /home/$NB_USER/environment.yml && \
     rm -rf /home/$NB_USER/examples
 COPY Dockerfile /home/$NB_USER/Dockerfile
