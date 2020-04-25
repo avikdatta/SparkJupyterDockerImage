@@ -27,15 +27,12 @@ RUN rm -rf /home/$NB_USER/entrypoint.sh && \
     rm -rf /home/$NB_USER/Dockerfile && \
     rm -rf /home/$NB_USER/environment.yml && \
     rm -rf /home/$NB_USER/examples
-COPY entrypoint.sh /home/$NB_USER/entrypoint.sh
 COPY Dockerfile /home/$NB_USER/Dockerfile
 COPY examples /home/$NB_USER/examples
 COPY environment.yml /home/$NB_USER/environment.yml
 RUN chown -R ${NB_UID} /home/$NB_USER && \
     chown -R ${NB_UID} /home/$NB_USER/examples && \
-    chown ${NB_UID} /home/$NB_USER/entrypoint.sh && \
     chmod a+r /home/$NB_USER/environment.yml && \
-    chmod a+x /home/$NB_USER/entrypoint.sh && \
     rm -rf /tmp/*
 USER $NB_USER
 WORKDIR /home/$NB_USER
@@ -45,8 +42,6 @@ RUN . /home/vmuser/miniconda3/etc/profile.d/conda.sh && \
     conda update -n base -c defaults conda && \
     conda activate notebook-env && \
     conda env update -q -n notebook-env --file /home/$NB_USER/environment.yml && \
-    echo ". /home/vmuser/miniconda3/etc/profile.d/conda.sh" >> ~/.bashrc && \
-    echo "source activate notebook-env" >> ~/.bashrc && \
     conda clean -a -y && \
     jupyter serverextension enable --sys-prefix jupyter_server_proxy && \
     rm -rf /home/$NB_USER/.cache && \
@@ -56,5 +51,4 @@ RUN . /home/vmuser/miniconda3/etc/profile.d/conda.sh && \
 EXPOSE 8888
 EXPOSE 8787
 EXPOSE 4040
-ENTRYPOINT [ "/usr/local/bin/tini","--","/home/vmuser/entrypoint.sh" ]
 CMD ["notebook"]
