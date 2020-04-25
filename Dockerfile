@@ -27,10 +27,8 @@ ENV TINI_VERSION v0.18.0
 RUN wget --quiet  https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini && \
     mv tini /usr/local/bin/tini && \ 
     chmod +x /usr/local/bin/tini
-COPY entrypoint.sh /home/$NB_USER/entrypoint.sh
 COPY environment.yml /home/$NB_USER/environment.yml
 RUN chown -R ${NB_UID} /home/$NB_USER && \
-    chmod a+x /home/$NB_USER/entrypoint.sh && \
     chmod a+r /home/$NB_USER/environment.yml && \
      rm -rf /tmp/*
 USER $NB_USER
@@ -49,8 +47,7 @@ RUN . /home/vmuser/miniconda3/etc/profile.d/conda.sh && \
     rm -rf /home/$NB_USER/tmp && \
     mkdir -p /home/$NB_USER/tmp && \
     mkdir -p /home/$NB_USER/.cache
-EXPOSE 8887
+EXPOSE 8888
 EXPOSE 8787
 EXPOSE 4040
-ENTRYPOINT [ "/usr/local/bin/tini","--","/home/vmuser/entrypoint.sh" ]
 CMD ["notebook"]
