@@ -23,14 +23,20 @@ RUN mkdir -p /home/$NB_USER/tmp && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* && \
     rm -rf /home/$NB_USER/tmp
-ENV TINI_VERSION v0.18.0
-RUN wget --quiet  https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini && \
-    mv tini /usr/local/bin/tini && \ 
-    chmod +x /usr/local/bin/tini
+RUN rm -rf /home/$NB_USER/entrypoint.sh && \
+    rm -rf /home/$NB_USER/Dockerfile && \
+    rm -rf /home/$NB_USER/environment.yml && \
+    rm -rf /home/$NB_USER/examples
+COPY entrypoint.sh /home/$NB_USER/entrypoint.sh
+COPY Dockerfile /home/$NB_USER/Dockerfile
+COPY examples /home/$NB_USER/examples
 COPY environment.yml /home/$NB_USER/environment.yml
 RUN chown -R ${NB_UID} /home/$NB_USER && \
+    chown -R ${NB_UID} /home/$NB_USER/examples && \
+    chown ${NB_UID} /home/$NB_USER/entrypoint.sh && \
     chmod a+r /home/$NB_USER/environment.yml && \
-     rm -rf /tmp/*
+    chmod a+x /home/$NB_USER/entrypoint.sh && \
+    rm -rf /tmp/*
 USER $NB_USER
 WORKDIR /home/$NB_USER
 ENV PATH $PATH:/home/$NB_USER/miniconda3/bin/
@@ -50,4 +56,5 @@ RUN . /home/vmuser/miniconda3/etc/profile.d/conda.sh && \
 EXPOSE 8888
 EXPOSE 8787
 EXPOSE 4040
+ENTRYPOINT [ "/usr/local/bin/tini","--","/home/vmuser/entrypoint.sh" ]
 CMD ["notebook"]
