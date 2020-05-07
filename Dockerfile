@@ -44,7 +44,8 @@ RUN . /home/vmuser/miniconda3/etc/profile.d/conda.sh && \
     conda clean -a -y && \
     jupyter serverextension enable --sys-prefix jupyter_server_proxy && \
     jupyter serverextension enable --py jupyter_spark && \
-    jupyter nbextension install --py jupyter_spark && \
+    jupyter contrib nbextension install --user && \
+    jupyter nbextension install --py jupyter_spark --user && \
     jupyter nbextension enable --py jupyter_spark && \
     jupyter nbextension enable --py widgetsnbextension && \
     rm -rf /home/$NB_USER/.cache && \
