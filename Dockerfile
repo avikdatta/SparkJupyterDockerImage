@@ -43,6 +43,10 @@ RUN . /home/vmuser/miniconda3/etc/profile.d/conda.sh && \
     conda env update -q -n notebook-env --file /home/$NB_USER/environment.yml && \
     conda clean -a -y && \
     jupyter serverextension enable --sys-prefix jupyter_server_proxy && \
+    jupyter serverextension enable --py jupyter_spark && \
+    jupyter nbextension install --py jupyter_spark && \
+    jupyter nbextension enable --py jupyter_spark && \
+    jupyter nbextension enable --py widgetsnbextension && \
     rm -rf /home/$NB_USER/.cache && \
     rm -rf /home/$NB_USER/tmp && \
     mkdir -p /home/$NB_USER/tmp && \
