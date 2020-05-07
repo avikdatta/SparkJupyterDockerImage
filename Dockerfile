@@ -42,12 +42,13 @@ RUN . /home/vmuser/miniconda3/etc/profile.d/conda.sh && \
     conda activate notebook-env && \
     conda env update -q -n notebook-env --file /home/$NB_USER/environment.yml && \
     conda clean -a -y && \
+    jupyter labextension install @jupyter-widgets/jupyterlab-manager && \
     jupyter serverextension enable --sys-prefix jupyter_server_proxy && \
     jupyter serverextension enable --py jupyter_spark && \
     jupyter contrib nbextension install --user && \
     jupyter nbextension install --py jupyter_spark --user && \
     jupyter nbextension enable --py jupyter_spark && \
-    jupyter nbextension enable --py widgetsnbextension && \
+    jupyter nbextension enable --py widgetsnbextension --sys-prefix && \
     rm -rf /home/$NB_USER/.cache && \
     rm -rf /home/$NB_USER/tmp && \
     mkdir -p /home/$NB_USER/tmp && \
@@ -55,4 +56,4 @@ RUN . /home/vmuser/miniconda3/etc/profile.d/conda.sh && \
 EXPOSE 8888
 EXPOSE 8787
 EXPOSE 4040
-CMD ["jupyter notebook --no-browser --port=8888 --ip=0.0.0.0 --Spark.url='0.0.0.0:4040'"]
+CMD ["jupyter lab --no-browser --port=8888 --ip=0.0.0.0 --Spark.url='0.0.0.0:4040'"]
