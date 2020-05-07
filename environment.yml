@@ -21,3 +21,4 @@ dependencies:
     - pyspark==2.4.5
     - plotly
     - jupyter_server_proxy
+    - jupyter-spark
