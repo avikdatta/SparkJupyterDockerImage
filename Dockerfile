@@ -55,4 +55,4 @@ RUN . /home/vmuser/miniconda3/etc/profile.d/conda.sh && \
 EXPOSE 8888
 EXPOSE 8787
 EXPOSE 4040
-CMD ["jupyter lab --no-browser --port=8888 --ip=0.0.0.0 --Spark.url='http://0.0.0.0:4040'"]
+CMD ["jupyter notebook --no-browser --port=8888 --ip=0.0.0.0 --Spark.url='0.0.0.0:4040'"]
