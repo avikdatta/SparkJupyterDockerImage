@@ -49,10 +49,15 @@ RUN . /home/vmuser/miniconda3/etc/profile.d/conda.sh && \
     jupyter nbextension install --py jupyter_spark --user && \
     jupyter nbextension enable --py jupyter_spark && \
     jupyter nbextension enable --py widgetsnbextension --sys-prefix && \
+    jupyter labextension install jupyterlab_sparkmonitor && \
+    jupyter serverextension enable --py sparkmonitor && \
+    ipython profile create --ipython-dir=/home/$NB_USER/.ipython && \
+    echo "c.InteractiveShellApp.extensions.append('sparkmonitor.kernelextension')" >>  /home/$NB_USER/.ipython/profile_default/ipython_config.py && \
     rm -rf /home/$NB_USER/.cache && \
     rm -rf /home/$NB_USER/tmp && \
     mkdir -p /home/$NB_USER/tmp && \
     mkdir -p /home/$NB_USER/.cache
+ENV IPYTHONDIR /home/$NB_USER/.ipython jupyter lab --watch
 EXPOSE 8888
 EXPOSE 8787
 EXPOSE 4040
