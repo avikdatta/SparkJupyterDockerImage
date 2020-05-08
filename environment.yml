@@ -19,3 +19,4 @@ dependencies:
     - jupyter_server_proxy
     - jupyter-spark
     - jupyter_contrib_nbextensions
+    - jupyterlab-sparkmonitor
