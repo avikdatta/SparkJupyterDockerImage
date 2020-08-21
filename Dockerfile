@@ -25,13 +25,16 @@ RUN mkdir -p /home/$NB_USER/tmp && \
     rm -rf /home/$NB_USER/tmp
 RUN rm -rf /home/$NB_USER/Dockerfile && \
     rm -rf /home/$NB_USER/environment.yml && \
-    rm -rf /home/$NB_USER/examples
+    rm -rf /home/$NB_USER/examples && \
+    rm -rf /home/$NB_USER/entrypoint.sh
 COPY Dockerfile /home/$NB_USER/Dockerfile
 COPY examples /home/$NB_USER/examples
 COPY environment.yml /home/$NB_USER/environment.yml
+COPY entrypoint.sh /home/$NB_USER/entrypoint.sh
 RUN chown -R ${NB_UID} /home/$NB_USER && \
     chown -R ${NB_UID} /home/$NB_USER/examples && \
     chmod a+r /home/$NB_USER/environment.yml && \
+    chmod a+r /home/$NB_USER/entrypoint.sh && \
     rm -rf /tmp/*
 USER $NB_USER
 WORKDIR /home/$NB_USER
@@ -57,8 +60,14 @@ RUN . /home/vmuser/miniconda3/etc/profile.d/conda.sh && \
     rm -rf /home/$NB_USER/tmp && \
     mkdir -p /home/$NB_USER/tmp && \
     mkdir -p /home/$NB_USER/.cache
+RUN wget -q -O /home/$NB_USER/zeppelin-0.9.0-preview2-bin-all.tgz \
+  http://apache.mirror.anlx.net/zeppelin/zeppelin-0.9.0-preview2/zeppelin-0.9.0-preview2-bin-all.tgz && \
+  tar -xf /home/$NB_USER/zeppelin-0.9.0-preview2-bin-all.tgz && \
+  rm -rf /home/$NB_USER/zeppelin-0.9.0-preview2-bin-all.tgz
 ENV IPYTHONDIR /home/$NB_USER/.ipython jupyter lab --watch
 EXPOSE 8888
 EXPOSE 8787
 EXPOSE 4040
-CMD ["jupyter lab --no-browser --port=8888 --ip=0.0.0.0 --Spark.url='0.0.0.0:4040'"]
+EXPOSE 8080
+ENTRYPOINT 
+CMD [ "notebook" ]
